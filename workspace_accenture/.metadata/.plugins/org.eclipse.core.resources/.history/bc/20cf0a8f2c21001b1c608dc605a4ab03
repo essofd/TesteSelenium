@@ -1,0 +1,12 @@
+#language: pt
+Funcionalidade: Enviar email
+	Como um usuario
+	Eu quero preencher um formulario do site sampleapp
+	Para que eu possa enviar um email
+
+Cenario: Deve enviar email atraves do site sampleapp
+
+	Dado que eu preenchi o formulario corretamente
+	Quando envia-lo
+	Entao deve ser exibida a mensagem “Sending e-mail success!” na tela
+	

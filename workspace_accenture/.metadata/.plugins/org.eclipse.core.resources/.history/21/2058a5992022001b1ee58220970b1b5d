@@ -1,0 +1,156 @@
+package br.com.accenture.utils;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Utils {
+	
+	// Variaveis
+	public static WebDriver driver;
+	
+	
+	// Seleciona opção em combobox pelo texto passado por parâmetro.
+		public void selecionarElementoPorTexto(By by, String texto, String nomeElemento) throws Exception {
+			try {
+				aguardarPorElemento(by);
+				new Select(driver.findElement(by)).selectByVisibleText(texto);
+
+				System.out.println("[SUCESSO] Seleciona o texto " + texto + " no elemento " + nomeElemento);
+			} catch (Exception e) {
+				System.out.println("[ERRO] Não foi possível selecionar o texto " + texto + " no elemento " + by);
+			}
+		}
+		
+		/*
+		 * Aguarda o elemento ser exibido (wait dinâmico). Quando o mesmo estiver
+		 * visível, o teste irá prosseguir. O tempo limite é de 30 segundos.
+		 */
+		public void aguardarPorElemento(By by) throws Exception {
+			long tempoEspera = 120;
+			try {
+				WebDriverWait wait = new WebDriverWait(driver, tempoEspera);
+				wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+				System.out.println("[SUCESSO] O elemento " + by + " foi encontrado na tela.");
+
+			} catch (Exception e) {
+				System.out.println("[ERRO] Timeout por aguardar pela presença do elemento " + by + " por " + tempoEspera + " segundos");
+			}
+		}
+		
+		// Preenche campo de texto (componente) com texto passado por parâmetro.
+		public void escreverTexto(By by, String texto, String nomeElemento) throws Exception {
+			try {
+				aguardarPorElemento(by);
+				driver.findElement(by).clear();
+				driver.findElement(by).sendKeys(texto);
+
+				System.out.println("[SUCESSO] Preenche o campo de texto " + nomeElemento + " com o valor " + texto);
+			} catch (Exception e) {
+				System.out.println("[ERRO] Não foi possível preencher o campo de texto " + by);
+			}
+		}
+		
+		// Verifica se a propriedade do componente em questão contém o texto
+		// passado por parâmetro.
+		public void contemTextoPresentePorElemento(By by, String texto, String nomeElemento) throws Exception {
+
+			try {
+				Assert.assertTrue(driver.findElement(by).getText().contains(texto));
+				System.out.println("[SUCESSO] Valida que o elemento " + nomeElemento + " contém em sua propriedade 'text' o texto " + texto);
+			} catch (Exception e) {
+				System.out.println("[ERRO] Não foi possível validar que o elemento " + by + " contenha em sua propriedade 'text' o texto "
+						+ texto);
+			}
+		}
+		
+		// Retorna a Data de hoje no padrão dd/MM/yyyy
+		public static String gerarDatadeHoje() {
+
+			String cData = "ddMMyyyy";
+			DateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
+			Date dDate = new Date();
+			cData = formataData.format(dDate);
+
+			return cData;
+		}
+		
+		// Retorna a data acrescida de X meses
+		public static String gerarDataAcrescida(int nmes) throws Exception {
+
+			String cData = "ddMMyyyy";
+			DateFormat formataData = new SimpleDateFormat(cData);
+			Date dDate = new Date();
+			cData = formataData.format(dDate);
+
+			Date df = formataData.parse(cData);
+
+			Calendar cal = Calendar.getInstance();
+
+			cal.setTime(df);
+
+			cal.add(Calendar.MONTH, nmes);
+
+			Date mData = cal.getTime();
+
+			cData = formataData.format(mData);
+
+			return cData;
+		}
+		
+		// Clica no componente passado por parametro.
+		public void clicarElemento(By by, String nomeElemento) throws Exception {
+			try {
+				aguardarPorElemento(by);
+				driver.findElement(by).click();
+				System.out.println("Clica no elemento " + nomeElemento);
+			} catch (Exception e) {
+				System.out.println("Não foi possível clicar no elemento " + by);
+			}
+		}
+		
+		// Realiza a ação 'Mouse Scroll' de cima para baixo na página
+		public void mouseScrollCimaParaBaixo() throws Exception {
+			try {
+
+				JavascriptExecutor jse = (JavascriptExecutor) driver;
+				jse.executeScript("window.scrollTo(0,document.body.scrollHeight);");
+			//	pausar(2000);
+
+				System.out.println("Realiza a ação 'Mouse Scroll' de cima para baixo na página");
+			} catch (Exception e) {
+				System.out.println("Não foi possível realizar a ação 'Mouse Scroll' de cima para baixo na pagina");
+			}
+		}
+		
+		// Realiza a ação 'Mouse Scroll' de baixo para cima na página
+		public void mouseScrollBaixoParaCima() throws Exception {
+			try {
+				JavascriptExecutor jse = (JavascriptExecutor) driver;
+				jse.executeScript("window.scrollBy(0,-500)", "");
+
+				System.out.println("Realiza a ação 'Mouse Scroll' de baixo para cima na página");
+			} catch (Exception e) {
+				System.out.println("Não foi possível realizar a ação 'Mouse Scroll' de baixo para cima na página");
+			}
+		}
+		
+		// Pausa a execução do teste de acordo com o tempo (milissegundos) passado por parâmetro.
+		public void pausar(int tempo) {
+			try {
+				Thread.sleep(tempo);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+}

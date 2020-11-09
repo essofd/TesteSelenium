@@ -1,0 +1,19 @@
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(features = "src/test/resources/testeAutomatico.feature", glue = "", tags = {}, 
+plugin = "pretty", monochrome = true, dryRun = false, strict = true)
+public class testeFeature {
+	@BeforeClass
+	public static void tearUp() {
+	}
+
+	@AfterClass
+	public static void finalizar() {
+		//DriveFactory.quitNavegador();
+	}
+}

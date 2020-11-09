@@ -1,0 +1,7 @@
+Como um usuario
+Eu quero preencher um formulario 
+Para que eu possa enviar um email
+
+Dado que eu preenchi o formulario corretamente
+Quando envia-lo
+Entao deve ser exibida a mensagem “Sending e-mail success!” na tela

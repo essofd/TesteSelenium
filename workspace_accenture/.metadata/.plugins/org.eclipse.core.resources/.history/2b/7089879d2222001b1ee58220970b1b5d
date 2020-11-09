@@ -1,0 +1,183 @@
+package br.com.accenture.steps;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import br.com.accenture.utils.Utils;
+import cucumber.api.java.pt.Dado;
+import cucumber.api.java.pt.Entao;
+import cucumber.api.java.pt.Quando;
+
+@SuppressWarnings("deprecation")
+public class TesteAutomaticoSteps extends Utils {
+	
+	@Dado("que estou acessando a aplicacao")
+	public void queEstouAcessandoAAplicacao() throws Exception {
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\essof\\dev\\drivers\\chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.get("http://sampleapp.tricentis.com/101/app.php");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+		//verifica se contem subtitulo "Vehicle Insurance Application" na tela
+		contemTextoPresentePorElemento(By.id("app_sub_title"), "Vehicle Insurance Application", "subtitulo");
+	}
+	
+	@Quando("eu preencho o formulario da aba Enter Vehicle Data corretamente") 
+	public void euPreenchoOFormularioDaAbaEnterVehicleDataCorretamente() throws Exception {
+		
+		//Verifica se o contador possui 10 itens para serem preenchidos obrigatoriamente
+		contemTextoPresentePorElemento(By.xpath("//*[@id='entervehicledata']/span"), "12", "Contador de Dados do Veiculo");
+		
+		//Seleciona a marca do carro
+		selecionarElementoPorTexto(By.id("make"), "Honda", "Make");
+		
+		//Seleciona a modelo do carro
+		selecionarElementoPorTexto(By.id("model"), "Motorcycle", "Model");
+		
+		//Preenche a capacidade do cilindro
+		escreverTexto(By.id("cylindercapacity"), "10", "Cylinder Capacity");
+		
+		//Preenche o desempenho do motor
+		escreverTexto(By.id("engineperformance"), "44", "Engine Performance");
+		
+		//Preenche a data da manufatura
+		escreverTexto(By.id("dateofmanufacture"), gerarDatadeHoje(), "Date of Manufacture");
+		
+		//Seleciona o numero de assentos
+		selecionarElementoPorTexto(By.id("numberofseats"), "1", "Number of Seats");
+		
+		//Seleciona radiobutton Direção a Direita
+		clicarElemento(By.xpath("*//input[@id='righthanddriveyes'][@value='Yes']/../span"), "radiobutton Yes");
+		 	
+		
+		//Seleciona o numero de assentos motocicleta
+		selecionarElementoPorTexto(By.id("numberofseatsmotorcycle"), "1", "Number of Seats motorcycle");
+
+		
+		//Seleciona o tipo de combustivel
+		selecionarElementoPorTexto(By.id("fuel"), "Petrol", "Fuel Type");
+		
+		//Preenche a carga util
+		escreverTexto(By.id("payload"), "1000", "List Price");
+				
+		//Preenche o preço total
+		escreverTexto(By.id("totalweight"), "2000", "List Price");
+		
+		//Preenche o preço da tabela
+		escreverTexto(By.id("listprice"), "15000", "List Price");
+		
+		//Preenche o numero da licença 
+		escreverTexto(By.id("licenseplatenumber"), "123456", "License Plate Number");
+
+		//Preenche a milhagem anual
+		escreverTexto(By.id("annualmileage"), "40000", "Annual Mileage");
+							
+		//Clica em Next
+		clicarElemento(By.id("nextenterinsurantdata"), "Next");
+		
+		//Scroll para cima
+		mouseScrollBaixoParaCima();
+				
+		
+	}
+
+	@Quando("preencho o formulario da aba Enter Insurant Data corretamente")
+	public void preenchoOFormularioDaAbaEnterInsurantDataCorretamente() throws Exception {
+
+		
+		//Verifica se o contador possui 7 itens para serem preenchidos obrigatoriamente
+		contemTextoPresentePorElemento(By.xpath("//*[@id='enterinsurantdata']/span"), "7", "Contador de Dados do Seguro");
+		
+		//Preenche o primeiro nome
+		escreverTexto(By.id("firstname"), "Edson", "First Name");
+		
+		//Preenche o sobrenome
+		escreverTexto(By.id("lastname"), "Costa", "Last Name");
+		
+		//Preenche a data de nascimento
+		escreverTexto(By.id("birthdate"), "12/08/1974", "Date of Birth");
+		
+		
+		//Seleciona radiobutton opção Masculino
+		clicarElemento(By.xpath("*//input[@value='Male']/../span"), "radiobutton Male");
+		
+		//Preenche o endereço
+		escreverTexto(By.id("streetaddress"), "Rua Camapuã, 60" , "Street Address");
+		
+		//Seleciona o país
+		selecionarElementoPorTexto(By.id("country"), "Brazil", "Country");
+		
+		//Preenche o cep
+		escreverTexto(By.id("zipcode"), "26050065", "Zip Code");
+		
+		//Preenche a cidade
+		escreverTexto(By.id("city"), "Nova Iguaçu", "City");
+		
+		//Seleciona a ocupação
+		selecionarElementoPorTexto(By.id("occupation"), "Employee", "Occupation");
+
+		//Seleciona checkbox opção Hobbies (Speeding e Outros)
+		clicarElemento(By.xpath("*//input[@value='Speeding']/../span"), "CheckBox Speeding");
+		clicarElemento(By.xpath("*//input[@value='Other']/../span"), "CheckBox Other");
+		
+		//Preenche WebSite
+		escreverTexto(By.id("website"), "www.accenture.com", "WebSite");
+		
+		//Clica em Next
+		clicarElemento(By.id("nextenterproductdata"), "Next");
+		
+		//Scroll para cima
+		mouseScrollBaixoParaCima();
+		
+				
+		
+	}
+
+	@Quando("preencho o formulario da aba Enter Product Data corretamente")
+	public void preenchoOFormularioDaAbaEnterProductDataCorretamente() throws Exception {
+		
+		
+		//Verifica se o contador possui 6 itens para serem preenchidos obrigatoriamente
+		contemTextoPresentePorElemento(By.xpath("//*[@id='enterproductdata']/span"), "6", "Contador de Dados do Produto");
+		
+		//Preenche a data de inicio com a data de Hoje acrescida de 2 meses
+		escreverTexto(By.id("birthdate"), gerarDataAcrescida(2), "Start Date");
+	
+		
+		//Seleciona a soma do seguro
+		selecionarElementoPorTexto(By.id("insurancesum"), "5.000.000,00", "Insurance Sum");
+		
+		//Seleciona a classificação de mérito
+		selecionarElementoPorTexto(By.id("meritrating"), "Bonus 5", "Merit Rating");
+		
+		
+		//Seleciona 
+		selecionarElementoPorTexto(By.id("damageinsurance"), "Full Coverage", "Damage Insurance");
+		
+		
+		
+
+		
+	}
+
+	@Quando("preencho o formulario da aba Select Price Option corretamente")
+	public void preenchoOFormularioDaAbaSelectPriceOptionCorretamente() throws Exception {
+	}
+
+	@Quando("preencho o formulario da aba Send Quote corretamente")
+	public void preenchoOFormularioDaAbaSendQuoteCorretamente() throws Exception {
+	}
+
+	@Quando("clico em send")
+	public void clicoEmSend() throws Exception {
+	}
+
+	@Entao("deve ser exibida uma mensagem de sucesso na tela")
+	public void deveSerExibidaUmaMensagemDeSucessoNaTela() throws Exception {
+	}
+
+	
+}

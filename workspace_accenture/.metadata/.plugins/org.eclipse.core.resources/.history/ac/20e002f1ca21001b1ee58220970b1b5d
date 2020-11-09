@@ -1,0 +1,55 @@
+package br.com.accenture.utils;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import br.com.accenture.runners.Runner;
+
+
+public class Utils extends Runner {
+	
+	
+	// Seleciona opção em combobox pelo texto passado por parâmetro.
+		public void selecionarElementoPorTexto(By by, String texto, String nomeElemento) throws Exception {
+			try {
+				aguardarPorElemento(by);
+				new Select(driver.findElement(by)).selectByVisibleText(texto);
+
+				System.out.println("Seleciona o texto " + texto + " no elemento " + nomeElemento);
+			} catch (Exception e) {
+				System.out.println("Não foi possível selecionar o texto " + texto + " no elemento " + by);
+			}
+		}
+		
+		/*
+		 * Aguarda o elemento ser exibido (wait dinâmico). Quando o mesmo estiver
+		 * visível, o teste irá prosseguir. O tempo limite é de 30 segundos.
+		 */
+		public void aguardarPorElemento(By by) throws Exception {
+			long tempoEspera = 120;
+			try {
+				WebDriverWait wait = new WebDriverWait(driver, tempoEspera);
+				wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+				System.out.println("O elemento " + by + " foi encontrado na tela.");
+
+			} catch (Exception e) {
+				System.out.println("Timeout por aguardar pela presença do elemento " + by + " por " + tempoEspera + " segundos");
+			}
+		}
+		
+		// Preenche campo de texto (componente) com texto passado por parâmetro.
+		public void escreverTexto(By by, String texto, String nomeElemento) throws Exception {
+			try {
+				aguardarPorElemento(by);
+				driver.findElement(by).clear();
+				driver.findElement(by).sendKeys(texto);
+
+				System.out.println("Preenche o campo de texto " + nomeElemento + " com o valor " + texto);
+			} catch (Exception e) {
+				System.out.println("N�o foi poss�vel preencher o campo de texto " + by);
+			}
+		}
+
+}

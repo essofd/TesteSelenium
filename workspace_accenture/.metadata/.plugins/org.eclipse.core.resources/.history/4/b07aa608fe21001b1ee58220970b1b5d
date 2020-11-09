@@ -1,0 +1,107 @@
+package br.com.accenture.steps;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import br.com.accenture.utils.Utils;
+import cucumber.api.java.pt.Dado;
+import cucumber.api.java.pt.Entao;
+import cucumber.api.java.pt.Quando;
+
+@SuppressWarnings("deprecation")
+public class TesteAutomaticoSteps extends Utils {
+	
+	@Dado("que estou acessando a aplicacao")
+	public void queEstouAcessandoAAplicacao() throws Exception {
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\essof\\dev\\drivers\\chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.get("http://sampleapp.tricentis.com/101/app.php");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+		//verifica se contem subtitulo "Vehicle Insurance Application" na tela
+		contemTextoPresentePorElemento(By.id("app_sub_title"), "Vehicle Insurance Application", "subtitulo");
+	}
+	
+	@Quando("eu preencho o formulario da aba Enter Vehicle Data corretamente") 
+	public void euPreenchoOFormularioDaAbaEnterVehicleDataCorretamente() throws Exception {
+		
+		//Seleciona a marca do carro
+		selecionarElementoPorTexto(By.id("make"), "Honda", "Make");
+		
+		//Seleciona a modelo do carro
+		selecionarElementoPorTexto(By.id("model"), "Motorcycle", "Model");
+		
+		//preenche a capacidade do cilindro
+		escreverTexto(By.id("cylindercapacity"), "10", "Cylinder Capacity");
+		
+		//preenche o desempenho do motor
+		escreverTexto(By.id("engineperformance"), "44", "Engine Performance");
+		
+		//preenche a data da manufatura
+		escreverTexto(By.id("dateofmanufacture"), gerarDatadeHoje(), "Cylinder Capacity");
+		
+		//Seleciona o numero de assentos
+		selecionarElementoPorTexto(By.id("numberofseats"), "1", "Number of Seats");
+		
+		//Seleciona radiobutton Direção a Direita
+		clicarElemento(By.xpath("//*[@id='insurance-form']/div/section[1]/div[7]/p/label[1]/span"), "radiobutton Yes");
+		
+		
+		//Seleciona o numero de assentos motocicleta
+		selecionarElementoPorTexto(By.id("numberofseatsmotorcycle"), "1", "Number of Seats motorcycle");
+
+		
+		//Seleciona o tipo de combustivel
+		selecionarElementoPorTexto(By.id("fuel"), "Petrol", "Fuel Type");
+		
+		//preenche a carga util
+		escreverTexto(By.id("payload"), "1000", "List Price");
+				
+		//preenche o preço total
+		escreverTexto(By.id("totalweight"), "2000", "List Price");
+		
+		//preenche o preço da tabela
+		escreverTexto(By.id("listprice"), "15000", "List Price");
+		
+		//preenche o numero da licença 
+		escreverTexto(By.id("licenseplatenumber"), "123456", "License Plate Number");
+
+		//preenche a milhagem anual
+		escreverTexto(By.id("annualmileage"), "40000", "Annual Mileage");
+							
+		//clica em Next
+		clicarElemento(By.id("nextenterinsurantdata"), "Next");
+				
+		
+	}
+
+	@Quando("preencho o formulario da aba Enter Insurant Data corretamente")
+	public void preenchoOFormularioDaAbaEnterInsurantDataCorretamente() throws Exception {
+	}
+
+	@Quando("preencho o formulario da aba Enter Product Data corretamente")
+	public void preenchoOFormularioDaAbaEnterProductDataCorretamente() throws Exception {
+	}
+
+	@Quando("preencho o formulario da aba Select Price Option corretamente")
+	public void preenchoOFormularioDaAbaSelectPriceOptionCorretamente() throws Exception {
+	}
+
+	@Quando("preencho o formulario da aba Send Quote corretamente")
+	public void preenchoOFormularioDaAbaSendQuoteCorretamente() throws Exception {
+	}
+
+	@Quando("clico em send")
+	public void clicoEmSend() throws Exception {
+	}
+
+	@Entao("deve ser exibida uma mensagem de sucesso na tela")
+	public void deveSerExibidaUmaMensagemDeSucessoNaTela() throws Exception {
+	}
+
+	
+}

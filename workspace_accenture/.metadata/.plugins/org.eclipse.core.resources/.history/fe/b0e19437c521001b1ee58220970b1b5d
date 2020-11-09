@@ -1,0 +1,20 @@
+package br.com.accenture.utils;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
+
+public class Utils {
+	
+	// Seleciona opção em combobox pelo texto passado por parâmetro.
+		public void selecionarElementoPorTexto(By by, String texto, String nomeElemento) throws Exception {
+			try {
+				aguardarPorElemento(by);
+				new Select(driver.findElement(by)).selectByVisibleText(texto);
+
+				logSucesso("Seleciona o texto " + texto + " no elemento " + nomeElemento);
+			} catch (Exception e) {
+				logErro("Não foi possível selecionar o texto " + texto + " no elemento " + by, e);
+			}
+		}
+
+}

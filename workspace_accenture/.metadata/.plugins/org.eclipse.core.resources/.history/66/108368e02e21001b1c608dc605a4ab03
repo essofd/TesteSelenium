@@ -1,0 +1,11 @@
+Feature: Enviar email
+	Como um usuario
+	Eu quero preencher um formulario do site sampleapp
+	Para que eu possa enviar um email
+
+Cenario: Deve enviar email atraves do site sampleapp
+
+	Given que eu preenchi o formulario corretamente
+	When envia-lo
+	Then deve ser exibida a mensagem “Sending e-mail success!” na tela
+	

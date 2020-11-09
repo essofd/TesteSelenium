@@ -1,0 +1,29 @@
+package br.com.accenture.runners;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+		features = "src/test/resources/features/testeAutomatico.feature", 
+		glue = "", 
+		tags = {}, 
+		plugin = "pretty", 
+		monochrome = true, 
+		snippets = io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE,
+		dryRun = false, 
+		strict = true)
+
+public class Runner {
+	@BeforeClass
+	public static void tearUp() {
+	}
+
+	@AfterClass
+	public static void finalizar() {
+		//DriveFactory.quitNavegador();
+	}
+}

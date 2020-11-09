@@ -1,0 +1,16 @@
+import org.junit.runner.RunWith;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(features = "src/test/resources/features/LoginMyCapital.feature", glue = "br.com.mycapital.testeintegrado.steps", tags = {
+		"@GeralLogin",
+		"not @no" }, plugin = "pretty", monochrome = true, snippets = SnippetType.CAMELCASE, dryRun = false, strict = true)
+public class testeFeature {
+	@BeforeClass
+	public static void tearUp() {
+	}
+
+	@AfterClass
+	public static void finalizar() {
+		DriveFactory.quitNavegador();
+	}
+}
